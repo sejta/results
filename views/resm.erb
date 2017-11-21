@@ -1,0 +1,132 @@
+<html>
+<head>
+  <title>Результаты</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+  <style>
+    body {
+      font-family: Consolas,monospace;
+      font-size: 13px;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+    input[type=text], select {
+      width: 300px;
+      padding: 5px 5px;
+      margin: 2px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 2px;
+      box-sizing: border-box;
+    }
+
+    input[type=submit], input[type=submit], input[type=reset] {
+      background-color: #268ab8;
+      border-radius: 3px;
+      border: 1px solid #0e98d8;
+      color: white;
+      padding: 5px 5px;
+      text-decoration: none;
+      margin: 4px 2px;
+      cursor: pointer;
+
+    }
+
+    input[type=submit]:hover {
+      background-color: #45a049;
+    }
+
+    h1 {
+      font-family: "Open Sans";
+      font-weight: 100;
+      font-size: 16px;
+    }
+
+    .info {
+      font-size: 12px;
+
+    }
+
+    .name {
+      font-family: 'Open Sans';
+      color: #173e43;
+      font-size: 15px;
+      padding-bottom: 10px;
+      float: left;
+      width: 150px;
+
+    }
+
+    .item {
+      width: 50px;
+      color: #c600ff;
+      float: right;
+    }
+
+    .content {
+      width: 500px;
+      margin: 0 auto;
+    }
+
+    #page-preloader {
+      position: fixed;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      background: #000;
+      z-index: 100500;
+    }
+
+    #page-preloader .spinner {
+      width: 32px;
+      height: 32px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      background: url('../126.gif') no-repeat 50% 50%;
+      margin: -16px 0 0 -16px;
+    }
+  </style>
+
+
+</head>
+<script>
+    $(document).ready(function () {
+        setInterval(function () {
+            $( "#mydiv" ).load(window.location.href + " #mydiv" );
+            //alert('hi');
+        }, 60000);
+    });
+</script>
+<body>
+
+
+
+<% @results.each_with_index do |result, index| %>
+   <% name = result.css('.team.team-1').css('.team-text.team-text-full').text %>
+   <% mesto = result.css('.team.team-2').css('.team-text.team-text-full').text %>
+    <% score = result.css('.winner.series-winner').text %>
+    <% scoreend = result.css('.winner.series-winner').css('.score-large').text %>
+
+    <p>
+
+      <%= index %> <%= name %>
+      <%if score == 'TBA' %> <b><font color="#0e98d8">LIVE</font></b>
+          <% else %> <b><font color="#c600ff"><%= scoreend %></font></b>
+          <% end %> <%= mesto %></p>
+<% end %>
+
+
+</body>
+</html>
