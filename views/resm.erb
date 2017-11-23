@@ -56,7 +56,13 @@
       font-size: 12px;
 
     }
-
+    .size {
+      color: #ff8000;
+      font-family: Consolas;
+      font-weight: 800;
+      float: left;
+      padding-right: 5px;
+    }
     .name {
       font-family: 'Open Sans';
       color: #173e43;
@@ -74,10 +80,15 @@
     }
 
     .content {
-      width: 500px;
-      margin: 0 auto;
+      width: 800px;
+      margin: 10px;
     }
 
+    .score {
+      font-family: 'Open Sans';
+      color: #45a049;
+      font-size: 13px;
+    }
     #page-preloader {
       position: fixed;
       left: 0;
@@ -110,22 +121,29 @@
     });
 </script>
 <body>
+<div class="content">
+<div id="mydiv">
+<% res = JSON.parse(@timeout) %>
+<% res.each  do |teams| %>
+
+    <% teamsone = teams['teamone'] %>
+    <% teamstwo = teams['teamtwo'] %>
+    <% score = teams['scored'] %>
+
+    <% teamsone.zip(score, teamstwo).each do |teamssone, scores, teamsstwo | %>
+    <% sc = scores.split('')[0..4].join("") %>
+
+          <p> <%= teamssone %> <%if sc == 'TBA' %> <b><font color="#ff8000">LIVE</font></b>
+              <% else %>
+                <b><font color="#45a049"> <%= sc %></font></b><% end %>
+              <%= teamsstwo %></p>
 
 
-
-<% @results.each_with_index do |result, index| %>
-   <% name = result.css('.team.team-1').css('.team-text.team-text-full').text %>
-   <% mesto = result.css('.team.team-2').css('.team-text.team-text-full').text %>
-    <% score = result.css('.winner.series-winner').text %>
-    <% scoreend = result.css('.winner.series-winner').css('.score-large').text %>
-
-    <p>
-
-      <%= index %> <%= name %>
-      <%if score == 'TBA' %> <b><font color="#0e98d8">LIVE</font></b>
-          <% else %> <b><font color="#c600ff"><%= scoreend %></font></b>
-          <% end %> <%= mesto %></p>
 <% end %>
+      <% end %>
+
+</div>
+</div>
 
 
 </body>
